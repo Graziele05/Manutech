@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
  
     fetch('components/rodape.html')
         .then(response => {
-            return response.text(); // Converte a resposta para texto
+            return response.text(); 
         })
         .then(data => {
             document.getElementById('rodape').innerHTML = data;
