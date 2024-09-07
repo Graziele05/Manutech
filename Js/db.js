@@ -1,62 +1,59 @@
+const mysql = require('mysql2');
 
-const express = require('express');
-const bodyParser = require('body-parser');
-const mysql = require('mysql');
-const app = express();
-
-
-app.use(bodyParser.json());
-
-
-const db = mysql.createConnection({
+const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'password',
-    database: 'formmanutech',
+    password: 'password', 
+    database: 'manutech'
 });
 
 
-db.connect((err) => {
+connection.connect((err) => {
     if (err) {
-        throw err;
+        console.error('Erro ao conectar com o banco de dados: ' + err.stack);
+        return;
     }
-    console.log('Conectado ao banco de dados MySQL');
+    console.log('Conectado ao banco de dados MySQL.');
 });
 
 
-app.post('/api/submit', (req, res) => {
-    const {
-        nome, email, telefone, tipoEquipamento, marcaModelo, numeroSerie,
-        diagnostico, reparo, instalacaoSoftware, requisitosInstalacao, atualizacaoSistema,
-        versaoAtual, versaoDesejada, prioridade, entrega, instrucoesAcesso, observacoes,
-        horarioPreferido
-    } = req.body;
+const insertFormData = (formData, callback) => {
+    const sql = `INSERT INTO forms (
+        nome, email, telefone, tipoEquipamento, marcaModelo, numeroSerie, 
+        diagnostico, reparo, instalacaoSoftware, requisitosInstalacao, 
+        atualizacaoSistema, versaoAtual, versaoDesejada, prioridade, 
+        entrega, instrucoesAcesso, observacoes, horarioPreferido
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-    const sql = `
-        INSERT INTO solicitacoes (
-            nome, email, telefone, tipoEquipamento, marcaModelo, numeroSerie,
-            diagnostico, reparo, instalacaoSoftware, requisitosInstalacao, atualizacaoSistema,
-            versaoAtual, versaoDesejada, prioridade, entrega, instrucoesAcesso, observacoes,
-            horarioPreferido
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `;
-
-    db.query(sql, [
-        nome, email, telefone, tipoEquipamento, marcaModelo, numeroSerie,
-        diagnostico, reparo, instalacaoSoftware, requisitosInstalacao, atualizacaoSistema,
-        versaoAtual, versaoDesejada, prioridade, entrega, instrucoesAcesso, observacoes,
-        horarioPreferido
-    ], (err, result) => {
+    connection.query(sql, [
+        formData.nome,
+        formData.email,
+        formData.telefone,
+        formData.tipoEquipamento,
+        formData.marcaModelo,
+        formData.numeroSerie,
+        formData.diagnostico,
+        formData.reparo,
+        formData.instalacaoSoftware,
+        formData.requisitosInstalacao,
+        formData.atualizacaoSistema,
+        formData.versaoAtual,
+        formData.versaoDesejada,
+        formData.prioridade,
+        formData.entrega,
+        formData.instrucoesAcesso,
+        formData.observacoes,
+        formData.horarioPreferido
+    ], (err, results) => {
         if (err) {
-            console.error('Erro ao inserir dados:', err);
-            return res.status(500).send('Erro ao salvar os dados');
+            console.error('Erro ao inserir dados: ' + err.stack);
+            return callback(err);
         }
-        res.send('Dados salvos com sucesso');
+        callback(null, results);
     });
-});
+};
 
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
-});
+module.exports = {
+    insertFormData
+};

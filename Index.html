@@ -3,21 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="/components/Public/logmanutech.png" type="image/x-icon">
-    <title>Manutech</title>
-    <link rel="stylesheet" href="css/top.css">
-    <link rel="stylesheet" href="css/rodape.css">
-    <link rel="stylesheet" href="css/form.css">
-    <link rel="stylesheet" href="style.css">
+    <title>Formulário</title>
+    <link rel="stylesheet" href="/Css/Form.css">
+ 
 </head>
 <body>
-    <div id="top"></div>
+    <section class="form-section">
+        <form id="myForm" method="post">
+            <fieldset>
+                <legend>Informações Pessoais</legend>
+                <label for="nome">Nome Completo:</label>
+                <input type="text" id="nome" name="nome" required>
+      
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" required>
+      
+                <label for="telefone">Telefone:</label>
+                <input type="tel" id="telefone" name="telefone" required>
+            </fieldset>
+      
+            <fieldset>
+                <legend>Informações do Equipamento</legend>
+                <label for="tipo-equipamento">Tipo de Equipamento:</label>
+                <select id="tipoEquipamento" name="tipoEquipamento" required>
+                    <option value="computador">Computador</option>
+                    <option value="laptop">Laptop</option>
+                </select>
+      
+                <label for="marca-modelo">Marca e Modelo:</label>
+                <input type="text" id="marcaModelo" name="marcaModelo" required>
+      
+                <label for="numero-serie">Número de Série (se disponível):</label>
+                <input type="text" id="numeroSserie" name="numeroSerie">
+            </fieldset>
+      
+            <fieldset>
+                <legend>Descrição do Problema ou Serviço Solicitado</legend>
+                <label for="diagnostico">Diagnóstico de Hardware:</label>
+                <textarea id="diagnostico" name="diagnostico"></textarea>
+      
+                <label for="reparo">Reparo de Hardware:</label>
+                <textarea id="reparo" name="reparo"></textarea>
+      
+                <label for="instalacao-software">Instalação de Software:</label>
+                <input type="text" id="instalacaoSoftware" name="instalacaoSoftware">
+      
+                <label for="requisitos-instalacao">Se houver requisitos específicos de instalação, descreva aqui:</label>
+                <textarea id="requisitosInstalacao" name="requisitosInstalacao"></textarea>
+      
+                <label for="atualizacao-sistema">Atualização de Sistema:</label>
+                <input type="text" id="atualizacaoSistema" name="atualizacaoSistema">
+      
+                <label for="versao-atual">Versão atual do sistema operacional:</label>
+                <input type="text" id="versaoAtual" name="versaoAtual" required>
+      
+                <label for="versao-desejada">Versão desejada ou requisitos para a atualização:</label>
+                <input type="text" id="versaoDesejada" name="versaoDesejada" required>
+            </fieldset>
+      
+            <fieldset>
+                <legend>Prioridade do Serviço</legend>
+                <label>
+                    <input type="radio" name="prioridade" value="alta" required> Alta (preciso com urgência)
+                </label>
+                <label>
+                    <input type="radio" name="prioridade" value="media"> Média (não é urgente, mas preciso dentro de um prazo razoável)
+                </label>
+                <label>
+                    <input type="radio" name="prioridade" value="baixa"> Baixa (não é urgente, pode esperar)
+                </label>
+            </fieldset>
+      
+            <fieldset>
+                <legend>Acesso ao Equipamento</legend>
+                <label for="entrega">O equipamento pode ser entregue pessoalmente?</label>
+                <select id="entrega" name="entrega" required>
+                    <option value="sim">Sim</option>
+                    <option value="nao">Não</option>
+                </select>
+      
+                <label for="instrucoes-acesso">Se não, forneça instruções para acesso remoto ou envio do equipamento:</label>
+                <textarea id="instrucoesAcesso" name="instrucoesAcesso"></textarea>
+            </fieldset>
+      
+            <fieldset>
+                <legend>Observações Adicionais</legend>
+                <textarea id="observacoes" name="observacoes"></textarea>
+            </fieldset>
+      
+            <fieldset>
+                <legend>Horário Preferido para Atendimento (se aplicável)</legend>
+                <input type="datetime-local" id="horarioPreferido" name="horario-preferido">
+            </fieldset>
+      
+            <button type="submit">Enviar Solicitação</button>
+        </form>
+    </section>
 
-    <div id="form"></div>
+    <script>
+    document.getElementById('myForm').addEventListener('submit', async function(event) {
+        event.preventDefault(); 
 
-    <div id="rodape"></div>
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData.entries());
 
-    <script src="js/main.js"></script>
-    <script src="js/form.js"></script>
+        try {
+            const response = await fetch('http://localhost:3000/submit-form', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                alert('Dados enviados com sucesso!');
+            } else {
+                alert('Erro ao enviar dados.');
+            }
+        } catch (error) {
+            alert('Erro ao conectar com o servidor.');
+        }
+    });
+    </script>
 </body>
 </html>
