@@ -1,0 +1,95 @@
+<section class="form-section">
+  <form method="POST" action="submit">
+      <fieldset>
+          <legend>Informações Pessoais</legend>
+          <label for="nome">Nome Completo:</label>
+          <input type="text" id="nome" name="nome" required>
+
+          <label for="email">E-mail:</label>
+          <input type="email" id="email" name="email" required>
+
+          <label for="telefone">Telefone:</label>
+          <input type="tel" id="telefone" name="telefone" required>
+      </fieldset>
+
+   
+      <fieldset>
+          <legend>Informações do Equipamento</legend>
+          <label for="tipo-equipamento">Tipo de Equipamento:</label>
+          <select id="tipo-equipamento" name="tipo-equipamento" required>
+              <option value="computador">Computador</option>
+              <option value="laptop">Laptop</option>
+          </select>
+
+          <label for="marca-modelo">Marca e Modelo:</label>
+          <input type="text" id="marca-modelo" name="marca-modelo" required>
+
+          <label for="numero-serie">Número de Série (se disponível):</label>
+          <input type="text" id="numero-serie" name="numero-serie">
+      </fieldset>
+
+      <fieldset>
+          <legend>Descrição do Problema ou Serviço Solicitado</legend>
+          <label for="diagnostico">Diagnóstico de Hardware:</label>
+          <textarea id="diagnostico" name="diagnostico"></textarea>
+
+          <label for="reparo">Reparo de Hardware:</label>
+          <textarea id="reparo" name="reparo"></textarea>
+
+          <label for="instalacao-software">Instalação de Software:</label>
+          <input type="text" id="instalacao-software" name="instalacao-software">
+
+          <label for="requisitos-instalacao">Se houver requisitos específicos de instalação, descreva aqui:</label>
+          <textarea id="requisitos-instalacao" name="requisitos-instalacao"></textarea>
+
+          <label for="atualizacao-sistema">Atualização de Sistema:</label>
+          <input type="text" id="atualizacao-sistema" name="atualizacao-sistema">
+
+          <label for="versao-atual">Versão atual do sistema operacional:</label>
+          <input type="text" id="versao-atual" name="versao-atual" required>
+
+          <label for="versao-desejada">Versão desejada ou requisitos para a atualização:</label>
+          <input type="text" id="versao-desejada" name="versao-desejada" required>
+      </fieldset>
+
+      <fieldset>
+          <legend>Prioridade do Serviço</legend>
+          <label>
+              <input type="radio" name="prioridade" value="alta" required> Alta (preciso com urgência)
+          </label>
+          <label>
+              <input type="radio" name="prioridade" value="media"> Média (não é urgente, mas preciso dentro de um prazo razoável)
+          </label>
+          <label>
+              <input type="radio" name="prioridade" value="baixa"> Baixa (não é urgente, pode esperar)
+          </label>
+      </fieldset>
+
+    
+      <fieldset>
+          <legend>Acesso ao Equipamento</legend>
+          <label for="entrega">O equipamento pode ser entregue pessoalmente?</label>
+          <select id="entrega" name="entrega" required>
+              <option value="sim">Sim</option>
+              <option value="nao">Não</option>
+          </select>
+
+          <label for="instrucoes-acesso">Se não, forneça instruções para acesso remoto ou envio do equipamento:</label>
+          <textarea id="instrucoes-acesso" name="instrucoes-acesso"></textarea>
+      </fieldset>
+
+      
+      <fieldset>
+          <legend>Observações Adicionais</legend>
+          <textarea id="observacoes" name="observacoes"></textarea>
+      </fieldset>
+
+     
+      <fieldset>
+          <legend>Horário Preferido para Atendimento (se aplicável)</legend>
+          <input type="datetime-local" id="horario-preferido" name="horario-preferido">
+      </fieldset>
+
+      <button type="submit">Enviar Solicitação</button>
+  </form>
+</section>

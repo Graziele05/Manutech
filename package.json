@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "form-manutencao",
   "version": "1.0.0",
   "main": "index.js",
@@ -15,5 +16,11 @@
     "express": "^4.19.2",
     "mysql": "^2.18.1",
     "mysql2": "^3.11.0"
+=======
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "mysql": "^2.18.1"
+>>>>>>> 798d99b0a7825b7b1e713e2b94145e7059457c22
   }
 }
